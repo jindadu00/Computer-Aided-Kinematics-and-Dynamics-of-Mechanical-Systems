@@ -20,7 +20,7 @@ def main(argv=None):
     constraints=pd.read_excel('constraints.xlsx')[1:]
 
     #  *******************Please Input Simulation Parameters*****************  #
-
+    t0=7
     t0 = 0
     N = 300
     te = 6
