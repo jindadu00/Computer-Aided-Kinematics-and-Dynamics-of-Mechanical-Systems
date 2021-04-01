@@ -10,6 +10,7 @@ from calculate_V import calculate_V
 from calculate_Gamma import calculate_Gamma
 from draw_pic import draw_pic
 from numpy.linalg import inv,det   #逆矩阵，行列式
+from math import *
 
 
 def main(argv=None):
@@ -21,11 +22,11 @@ def main(argv=None):
     #  *******************Please Input Simulation Parameters*****************  #
 
     t0 = 0
-    N = 500
-    te = 5
-    maxi = 100000
-    e1 = 1e-4
-    e2 = 1e-4
+    N = 300
+    te = 6
+    maxi = 10000
+    e1 = 1e-6
+    e2 = 1e-6
     dt = (te-t0)/N
 
     #返回i的总数乘以3，即约束的个数记录在n中   
@@ -36,9 +37,9 @@ def main(argv=None):
 
     #  **********************Estimate Initial Condition**********************  #
 
-    q0 = [0]*n
+    # q0 = np.mat(np.random.random(n))
     # 如果上面那个初始化不行，请用户在下面修改
-    # q0 = [0,0,0]
+    q0=[0,0,0,0,-2,pi/3,1.5,0,pi/3,0,2,-pi/6]
 
     #  ******************************Main Program****************************  #
 
@@ -63,6 +64,8 @@ def main(argv=None):
             if abs(det(PHIq)) < e2:
                 print('Improper initial value:')
                 print('abs(det(PHIq)) < e2')
+                print(PHIq)
+                print(det(PHIq))
                 return
             dq=-inv(PHIq)*PHI
             q = q + dq
@@ -78,13 +81,14 @@ def main(argv=None):
         
         series_q = np.hstack((series_q,q))
 
-        # 求解t时刻的速度加速度
+        # 求解t时刻的速度,加速度
 
         PHIq = calculate_PHIq(q, t, constraints)
         V = calculate_V(q, t, constraints)
 
         if abs(det(PHIq)) < e2:
             print('Singularity')
+            print(PHIq)
             return
         
         dq = inv(PHIq)*V
@@ -104,7 +108,9 @@ def main(argv=None):
     # 如要描述位形，有'x'，'y'，'phi'三种选项，
     # 如要描述速度，有'dx'，'dy'，'dphi'三种选项，
     # 如要描述加速度，有'ddx'，'ddy'，'ddphi'三种选项，
-    draw_pic(context,'y')
+    # draw_pic(context,sign='x',n=0):
+
+    draw_pic(context,'ddx',3) 
 
 
 if __name__ == "__main__":

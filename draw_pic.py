@@ -25,11 +25,14 @@ def draw_q(series_q,time_series,sign,n):
         i = 1
     if sign=='phi':
         i = 2
+
     t = time_series.reshape(-1,1)
-    q = series_q[i,(1+n*3):].T
+    q = series_q[i+n*3,1:].T
+    
+    plt.grid()
     plt.title("第"+str(n)+"个刚体的"+sign+"-t曲线")
-    plt.xlabel(sign) 
-    plt.ylabel("t")
+    plt.xlabel('t') 
+    plt.ylabel(sign)
     plt.plot(t,q)
     plt.show()
 
@@ -42,10 +45,12 @@ def draw_dq(series_dq,time_series,sign,n):
     if sign=='dphi':
         i = 2
     t = time_series.reshape(-1,1)
-    dq = series_dq[i,(1+n*3):].T
+    dq = series_dq[i+n*3,1:].T
+    plt.grid()
     plt.title("第"+str(n)+"个刚体的"+sign+"-t曲线")
-    plt.xlabel(sign) 
-    plt.ylabel("t")
+    plt.xlabel('t') 
+    plt.ylabel(sign)
+
     plt.plot(t,dq)
     plt.show()
 
@@ -58,9 +63,10 @@ def draw_ddq(series_ddq,time_series,sign,n):
     if sign=='ddphi':
         i = 2
     t = time_series.reshape(-1,1)
-    ddq = series_ddq[i,(1+n*3):].T
+    ddq = series_ddq[i+n*3,1:].T
+    plt.grid()
     plt.title("第"+str(n)+"个刚体的"+sign+"-t曲线")
-    plt.xlabel(sign) 
-    plt.ylabel("t")
+    plt.xlabel('t') 
+    plt.ylabel(sign)
     plt.plot(t,ddq)
     plt.show()
