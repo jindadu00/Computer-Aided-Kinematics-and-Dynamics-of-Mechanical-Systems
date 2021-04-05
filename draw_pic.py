@@ -31,7 +31,11 @@ def draw_q(series_q,time_series,sign,n):
     
     plt.grid()
     plt.title("第"+str(n)+"个刚体的"+sign+"-t曲线")
-    plt.xlabel('t') 
+    plt.xlabel('t(s)')
+    if sign=='phi':
+        sign=sign+'(rad)'
+    else:
+        sign=sign+'(cm)'
     plt.ylabel(sign)
     plt.plot(t,q)
     plt.show()
@@ -48,7 +52,11 @@ def draw_dq(series_dq,time_series,sign,n):
     dq = series_dq[i+n*3,1:].T
     plt.grid()
     plt.title("第"+str(n)+"个刚体的"+sign+"-t曲线")
-    plt.xlabel('t') 
+    plt.xlabel('t(s)') 
+    if sign=='dphi':
+        sign=sign+'(rad/s)'
+    else:
+        sign=sign+'(cm/s)'
     plt.ylabel(sign)
 
     plt.plot(t,dq)
@@ -66,7 +74,11 @@ def draw_ddq(series_ddq,time_series,sign,n):
     ddq = series_ddq[i+n*3,1:].T
     plt.grid()
     plt.title("第"+str(n)+"个刚体的"+sign+"-t曲线")
-    plt.xlabel('t') 
+    plt.xlabel('t(s)') 
+    if sign=='ddphi':
+        sign=sign+'(rad/s^2)'
+    else:
+        sign=sign+'(cm/s^2)'
     plt.ylabel(sign)
     plt.plot(t,ddq)
     plt.show()

@@ -9,6 +9,7 @@ from calculate_PHIq import calculate_PHIq
 from calculate_V import calculate_V
 from calculate_Gamma import calculate_Gamma
 from draw_pic import draw_pic
+from show_animation import show_animation
 from numpy.linalg import inv,det   #逆矩阵，行列式
 from math import *
 
@@ -20,7 +21,7 @@ def main(argv=None):
     constraints=pd.read_excel('constraints.xlsx')[1:]
 
     #  *******************Please Input Simulation Parameters*****************  #
-    t0=7
+
     t0 = 0
     N = 300
     te = 6
@@ -103,6 +104,9 @@ def main(argv=None):
     # context是打包好的参数，为了画图，别动
     context = [time_series,series_q,series_dq,series_ddq]
 
+
+    #  **************************Draw Pictures************************  #
+
     # n表示第n个物体（从0开始，与输入表格对应）的位形，默认第0个
     # sign是一个字符串,默认为'x'
     # 如要描述位形，有'x'，'y'，'phi'三种选项，
@@ -110,8 +114,21 @@ def main(argv=None):
     # 如要描述加速度，有'ddx'，'ddy'，'ddphi'三种选项，
     # draw_pic(context,sign='x',n=0):
 
+    draw_pic(context,'x',3) 
+    draw_pic(context,'dx',3) 
     draw_pic(context,'ddx',3) 
 
 
+    #  **************************Show Animation************************  #
+    # 如果有画动画的必要，在geometrical_parameters.xlsx中输入所有刚体的参数
+    # 1.动画需要输入刚体的几何参数，每一行代表一个刚体，两个端点的坐标目前只支持平面矩形，连体基的x轴为矩形沿着长边的中轴线
+    # 2.如有必要手动调整动画显示的坐标轴范围
+    show_animation(series_q,dt)
+
+    
+
+
 if __name__ == "__main__":
+    print("Let's Go")
     main()
+    print("0 Warnings, 0 Errors")
